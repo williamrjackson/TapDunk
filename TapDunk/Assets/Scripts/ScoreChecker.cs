@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class ScoreChecker : MonoBehaviour {
     
-    public OverlapReporter BottomCheck;
-    public BasketballBehavior Ball;
+    public OverlapReporter bottomOverlapReporter;
+    public FlappyMove ball;
+    public ManageHoops hoopManager;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject == Ball.gameObject && !BottomCheck.isOverlapping)
+        if (collision.gameObject == ball.gameObject && !bottomOverlapReporter.isOverlapping)
         {
             Timer.instance.score++;
-            Ball.ToggleBumpDirection();
+            ball.ToggleBumpDirection();
             Timer.instance.ResetTimer();
+            hoopManager.ShiftHoops();
         }
     }
 }
